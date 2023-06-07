@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use blockifier::execution::contract_class::ContractClass;
 use blockifier::state::cached_state::ContractStorageKey;
 use blockifier::state::errors::StateError;
@@ -7,7 +9,6 @@ use starknet_api::core::{ClassHash, CompiledClassHash, ContractAddress, Nonce, P
 use starknet_api::hash::{StarkFelt, StarkHash};
 use starknet_api::patricia_key;
 use starknet_api::state::StorageKey;
-use std::collections::HashMap;
 
 use crate::constants::{
     ERC20_CONTRACT, ERC20_CONTRACT_CLASS_HASH, FEE_TOKEN_ADDRESS, UDC_ADDRESS, UDC_CLASS_HASH,

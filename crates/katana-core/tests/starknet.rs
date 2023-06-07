@@ -1,11 +1,16 @@
+use std::collections::HashMap;
+
 use blockifier::abi::abi_utils::{get_storage_var_address, selector_from_name};
+use blockifier::execution::contract_class::ContractClass;
+use blockifier::state::cached_state::ContractStorageKey;
 use blockifier::transaction::account_transaction::AccountTransaction;
 use blockifier::transaction::transaction_execution::Transaction;
 use katana_core::constants::{DEFAULT_GAS_PRICE, FEE_TOKEN_ADDRESS};
 use katana_core::starknet::{StarknetConfig, StarknetWrapper};
+use katana_core::state::DictStateReader;
 use starknet::core::types::TransactionStatus;
 use starknet_api::block::BlockNumber;
-use starknet_api::core::Nonce;
+use starknet_api::core::{ClassHash, ContractAddress, Nonce, PatriciaKey};
 use starknet_api::hash::StarkFelt;
 use starknet_api::transaction::{
     Calldata, InvokeTransaction, InvokeTransactionV1, TransactionHash,
@@ -174,3 +179,101 @@ fn test_add_reverted_transaction() {
 //         stark_felt!(DEFAULT_PREFUNDED_ACCOUNT_BALANCE),
 //     );
 // }
+
+#[test]
+fn test_starknet_wrapper_serde() {
+    let original_starknet = create_test_starknet();
+    let serialized = serde_json::to_string(&original_starknet).unwrap();
+    let deserialized: Result<StarknetWrapper, serde_json::Error> =
+        serde_json::from_str(&serialized);
+    assert!(deserialized.is_ok());
+}
+
+#[test]
+fn test_dict_state_reader_serde() {
+    let original_starknet = create_test_starknet();
+    let original_state = original_starknet.state;
+    let serialized = serde_json::to_string(&original_state).unwrap();
+    let deserialized: Result<DictStateReader, serde_json::Error> =
+        serde_json::from_str(&serialized);
+    assert!(deserialized.is_ok());
+}
+
+#[test]
+fn test_storage_view_serde() {
+    let original_starknet = create_test_starknet();
+    let original_state = original_starknet.state;
+    let original_storage_view = original_state.storage_view;
+    let serialized = serde_json::to_string(&original_storage_view).unwrap();
+    let deserialized: Result<HashMap<ContractStorageKey, StarkFelt>, serde_json::Error> =
+        serde_json::from_str(&serialized);
+    assert!(deserialized.is_ok());
+}
+
+#[test]
+fn test_address_to_nonce_serde() {
+    let original_starknet = create_test_starknet();
+    let original_state = original_starknet.state;
+    let original_address_to_nonce = original_state.address_to_nonce;
+    let serialized = serde_json::to_string(&original_address_to_nonce).unwrap();
+    let deserialized: Result<HashMap<ContractAddress, Nonce>, serde_json::Error> =
+        serde_json::from_str(&serialized);
+    assert!(deserialized.is_ok());
+}
+
+#[test]
+fn test_address_to_class_hash_serde() {
+    let original_starknet = create_test_starknet();
+    let original_state = original_starknet.state;
+    let original_address_to_class_hash = original_state.address_to_class_hash;
+    let serialized = serde_json::to_string(&original_address_to_class_hash).unwrap();
+    let deserialized: Result<HashMap<ContractAddress, ClassHash>, serde_json::Error> =
+        serde_json::from_str(&serialized);
+    assert!(deserialized.is_ok());
+}
+
+#[test]
+fn test_class_hash_to_class_serde() {
+    let original_starknet = create_test_starknet();
+    let original_state = original_starknet.state;
+    let original_class_hash_to_class = original_state.class_hash_to_class;
+    let serialized = serde_json::to_string(&original_class_hash_to_class).unwrap();
+    let deserialized: Result<HashMap<ClassHash, ContractClass>, serde_json::Error> =
+        serde_json::from_str(&serialized);
+    if deserialized.is_err() {
+        println!("{:?}", deserialized);
+    }
+    assert!(deserialized.is_ok());
+}
+
+#[test]
+fn test_transaction_hash_serde() {
+    let original_hash = TransactionHash(StarkFelt::new([0u8; 32]).unwrap());
+    let serialized = serde_json::to_string(&original_hash).unwrap();
+    let deserialized: TransactionHash = serde_json::from_str(&serialized).unwrap();
+    assert_eq!(original_hash, deserialized);
+}
+
+#[test]
+fn test_contract_address_serde() {
+    let original_address = ContractAddress(PatriciaKey::default());
+    let serialized = serde_json::to_string(&original_address).unwrap();
+    let deserialized: ContractAddress = serde_json::from_str(&serialized).unwrap();
+    assert_eq!(original_address, deserialized);
+}
+
+#[test]
+fn test_class_hash_serde() {
+    let original_hash = ClassHash(StarkFelt::new([0u8; 32]).unwrap());
+    let serialized = serde_json::to_string(&original_hash).unwrap();
+    let deserialized: ClassHash = serde_json::from_str(&serialized).unwrap();
+    assert_eq!(original_hash, deserialized);
+}
+
+#[test]
+fn test_contract_storage_key_serde() {
+    let original_key = (ContractAddress(PatriciaKey::default()), PatriciaKey::default());
+    let serialized = serde_json::to_string(&original_key).unwrap();
+    let deserialized: (ContractAddress, PatriciaKey) = serde_json::from_str(&serialized).unwrap();
+    assert_eq!(original_key, deserialized);
+}

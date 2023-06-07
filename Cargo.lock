@@ -525,9 +525,9 @@ dependencies = [
 
 [[package]]
 name = "async-graphql"
-version = "5.0.9"
+version = "5.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "364423936c4b828ac1615ce325e528c5afbe6e6995d799ee5683c7d36720dfa4"
+checksum = "b35ef8f9be23ee30fe1eb1cf175c689bc33517c6c6d0fd0669dade611e5ced7f"
 dependencies = [
  "async-graphql-derive",
  "async-graphql-parser",
@@ -559,9 +559,9 @@ dependencies = [
 
 [[package]]
 name = "async-graphql-derive"
-version = "5.0.9"
+version = "5.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "23a06320343bbe0a1f2e29ec6d1ed34e0460f10e6827b3154a78e4ccc039dbc4"
+checksum = "1a0f6ceed3640b4825424da70a5107e79d48d9b2bc6318dfc666b2fc4777f8c4"
 dependencies = [
  "Inflector",
  "async-graphql-parser",
@@ -575,9 +575,9 @@ dependencies = [
 
 [[package]]
 name = "async-graphql-parser"
-version = "5.0.9"
+version = "5.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "46ce3b4b57e2a4630ea5e69eeb02fb5ee3c5f48754fcf7fd6a7bf3b4f96538f0"
+checksum = "ecc308cd3bc611ee86c9cf19182d2b5ee583da40761970e41207f088be3db18f"
 dependencies = [
  "async-graphql-value",
  "pest",
@@ -587,9 +587,9 @@ dependencies = [
 
 [[package]]
 name = "async-graphql-poem"
-version = "5.0.9"
+version = "5.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "90652566571512af3047db3502b5ec149b0fab9e6b7d7be0f4aff6621da0f676"
+checksum = "68f818938d4e47dcc40bc383e9ddec373e9aab1db29e5ad9706b29621afe3b3f"
 dependencies = [
  "async-graphql",
  "futures-util",
@@ -600,9 +600,9 @@ dependencies = [
 
 [[package]]
 name = "async-graphql-value"
-version = "5.0.9"
+version = "5.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "637c6b5a755133d47c9829df04b7a5e2f1856fe4c1101f581650c93198eba103"
+checksum = "d461325bfb04058070712296601dfe5e5bd6cdff84780a0a8c569ffb15c87eb3"
 dependencies = [
  "bytes",
  "indexmap",
@@ -4594,9 +4594,9 @@ dependencies = [
 
 [[package]]
 name = "iana-time-zone"
-version = "0.1.56"
+version = "0.1.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0722cd7114b7de04316e7ea5456a0bbb20e4adb46fd27a3697adb812cff0f37c"
+checksum = "2fad5b825842d2b38bd206f3e81d6957625fd7f0a361e345c30e01a0ae2dd613"
 dependencies = [
  "android_system_properties",
  "core-foundation-sys",
@@ -5111,7 +5111,6 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "bincode 1.3.3",
  "blockifier",
  "cairo-lang-starknet",
  "flate2",
@@ -7971,7 +7970,7 @@ dependencies = [
 [[package]]
 name = "starknet_api"
 version = "0.1.0"
-source = "git+https://github.com/dojoengine/starknet-api?branch=dev#c82d3eb569bd046f35d856ddb7ca149985da4ba4"
+source = "git+https://github.com/eikix/starknet-api?branch=dev#3ffb92eb23c628cf124b045a6755486270b4be39"
 dependencies = [
  "cairo-lang-starknet",
  "derive_more",
@@ -8095,15 +8094,16 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 
 [[package]]
 name = "tempfile"
-version = "3.5.0"
+version = "3.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b9fbec84f381d5795b08656e4912bec604d162bff9291d6189a78f4c8ab87998"
+checksum = "31c0432476357e58790aaa47a8efb0c5138f137343f3b5f23bd36a27e3b0a6d6"
 dependencies = [
+ "autocfg",
  "cfg-if",
  "fastrand",
  "redox_syscall 0.3.5",
  "rustix",
- "windows-sys 0.45.0",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]

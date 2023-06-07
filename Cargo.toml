@@ -81,7 +81,7 @@ tokio-util = "0.7.7"
 blockifier = { git = "https://github.com/eikix/blockifier", branch = "dev" }
 
 [patch."https://github.com/starkware-libs/starknet-api"]
-starknet_api = { git = "https://github.com/dojoengine/starknet-api", branch = "dev" }
+starknet_api = { git = "https://github.com/eikix/starknet-api", branch = "dev" }
 
 [patch.crates-io]
 starknet-crypto = { git = "https://github.com/xJonathanLEI/starknet-rs", branch = "dev/jsonrpc_0_3_0" }

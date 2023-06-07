@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use serde::{Deserialize, Serialize};
 use starknet::core::types::StateUpdate;
 use starknet_api::block::{
     Block, BlockBody, BlockHash, BlockHeader, BlockNumber, BlockStatus, BlockTimestamp, GasPrice,
@@ -10,7 +11,6 @@ use starknet_api::stark_felt;
 use starknet_api::transaction::{Transaction, TransactionOutput};
 
 use crate::state::DictStateReader;
-use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub struct StarknetBlock {
@@ -116,11 +116,7 @@ impl StarknetBlocks {
 
     pub fn current_block_number(&self) -> Option<BlockNumber> {
         let block_len = self.total_blocks();
-        if block_len == 0 {
-            None
-        } else {
-            Some(BlockNumber(block_len as u64 - 1))
-        }
+        if block_len == 0 { None } else { Some(BlockNumber(block_len as u64 - 1)) }
     }
 
     pub fn latest(&self) -> Option<StarknetBlock> {
