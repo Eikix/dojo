@@ -55,8 +55,8 @@ impl JsonRpcTransport for MockJsonRpcTransport {
         P: Serialize + Send,
         R: DeserializeOwned,
     {
-        let method = serde_json::to_string(&method).unwrap().replace(r#"\""#, "");
-        let params = serde_json::to_string(&params).unwrap().replace(r#"\""#, r#"""#);
+        let method = serde_json::to_string(&method).unwrap().replace('\"', "");
+        let params = serde_json::to_string(&params).unwrap().replace('\"', r#"""#);
 
         match self.responses.get(&(method.clone(), params.clone())) {
             Some(res) => serde_json::from_str(res).map_err(|e| MockError { msg: e.to_string() }),
